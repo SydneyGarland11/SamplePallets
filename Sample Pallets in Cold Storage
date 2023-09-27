@@ -1,0 +1,35 @@
+# Define the predefined pallet layout as a matrix
+# 0 represents an empty space, and 1 represents an occupied space
+pallet_layout <- matrix(
+  c(0, 0, 0, 1, 0, 0, 1, 1, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 0, 0, 0, 0, 0, 0, 1, 0,
+    0, 0, 0, 0, 1, 0, 0, 0, 0, 0),
+  nrow = 4,
+  byrow = TRUE
+)
+
+# Function to randomly select an empty pallet space
+randomly_select_pallet_space <- function(layout) {
+  # Get the indices of empty pallet spaces (0 values)
+  empty_indices <- which(layout == 0, arr.ind = TRUE)
+  
+  # If there are empty spaces, randomly select one
+  if (length(empty_indices) > 0) {
+    random_index <- sample(1:length(empty_indices), 1)
+    selected_space <- empty_indices[random_index, ]
+    return(selected_space)
+  } else {
+    return(NULL)  # No empty spaces available
+  }
+}
+
+# Randomly select a pallet space
+selected_space <- randomly_select_pallet_space(pallet_layout)
+
+# Check if a space was selected
+if (!is.null(selected_space)) {
+  cat("Selected pallet space at row:", selected_space[1], "column:", selected_space[2], "\n")
+} else {
+  cat("No empty pallet spaces available.\n")
+}
